@@ -7,10 +7,8 @@ import { headers } from "next/headers";
 export async function sendEmail(formData: FormData) {
 	const email = formData.get("email") as string;
 
-	// biome-ignore lint/complexity/noForEach: <explanation>
-	headers().forEach((h) => {
-		console.log(h);
-	});
+	console.log(headers().get("x-forwarded-for"));
+	console.log(headers().get("x-real-ip"));
 
 	const schema = z.object({
 		email: z.string().email(),
