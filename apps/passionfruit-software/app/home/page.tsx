@@ -8,6 +8,7 @@ import { sendEmail } from "./sendEmail";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { Label } from "@radix-ui/react-label";
+import { BedIcon, MonitorSmartphoneIcon, PackageCheckIcon, ShieldIcon, WebhookIcon } from "lucide-react";
 
 const Submit = () => {
 	const status = useFormStatus();
@@ -44,13 +45,12 @@ export default function IndexPage() {
 				<section className="w-full md:pt-24 lg:pt-32 bg-slate-900 bg-[url('/BG.svg')] bg-center bg-cover bg-no-repeat pb-24">
 					<div className="px-4 md:px-6 space-y-10 xl:space-y-16">
 						<div className="grid max-w-[1300px] mx-auto gap-4 px-4 sm:px-6 md:px-10 md:grid-cols-2 md:gap-16">
-							<div className="flex flex-col justify-end items-start mt-8">
+							<div className="flex flex-col justify-end items-start mt-16 md:mt-8">
 								<h1 className="bg-white p-8 text-slate-900 lg:leading-tighter text-left text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
-									Passionate For Your Success
+									Your Success, Our Mission
 								</h1>
 								<p className="bg-white p-8 text-slate-900 max-w-[700px] text-left md:text-xl font-bold">
-									We build software that drives your business forward. Custom
-									solutions tailored to your needs.
+									We build software that drives your business forward. Custom solutions tailored to your needs.
 								</p>
 							</div>
 						</div>
@@ -75,7 +75,7 @@ export default function IndexPage() {
 						</div>
 						<div className="mx-auto grid gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-3 items-stretch">
 							<div className="grid gap-1 bg-blue-50 p-4 rounded-lg shadow-sm border-blue-100 border-2">
-								<h3 className="text-lg font-bold">Custom API Development</h3>
+								<h3 className="text-lg font-bold"><WebhookIcon />API Development</h3>
 								<p className="text-sm text-gray-500 dark:text-gray-400">
 									We specialize in creating robust and scalable APIs tailored to
 									your business needs. Our services include RESTful API design,
@@ -86,7 +86,7 @@ export default function IndexPage() {
 							</div>
 							<div className="grid gap-1 bg-yellow-50 p-4 rounded-lg shadow-sm border-yellow-100 border-2">
 								<h3 className="text-lg font-bold">
-									Comprehensive Infrastructure Management
+									<PackageCheckIcon />Infrastructure Management
 								</h3>
 								<p className="text-sm text-gray-500 dark:text-gray-400">
 									Ensure the reliability and efficiency of your digital
@@ -98,7 +98,7 @@ export default function IndexPage() {
 							</div>
 							<div className="grid gap-1 bg-purple-50 p-4 rounded-lg shadow-sm border-purple-100 border-2">
 								<h3 className="text-lg font-bold">
-									Innovative Frontend Development
+									<MonitorSmartphoneIcon />Frontend Development
 								</h3>
 								<p className="text-sm text-gray-500 dark:text-gray-400">
 									Crafting visually appealing and user-friendly interfaces for
@@ -130,7 +130,7 @@ export default function IndexPage() {
 								</p>
 							</div>
 						</div>
-						<div className="mx-auto grid items-start gap-8 sm:max-w-4xl md:gap-12 lg:max-w-5xl mt-16">
+						<div className="mx-auto grid items-start gap-12 sm:max-w-4xl lg:max-w-5xl mt-16 grid-cols-1 md:grid-cols-3">
 							<div className="grid gap-1">
 								<Image
 									alt="Jack Thomson"
@@ -145,15 +145,48 @@ export default function IndexPage() {
 									CEO & Lead Engineer
 								</p>
 							</div>
+							<div className="grid gap-1">
+								<Image
+									alt="Katie Smaldon"
+									width={100}
+									height={100}
+									className="mx-auto aspect-[1/1] overflow-hidden rounded-full object-cover"
+									src="/katie.jpg?height=100&width=100"
+								/>
+
+								<h3 className="text-lg font-bold text-center">Katie Smaldon</h3>
+								<p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+									Head of accounts
+								</p>
+							</div>
+							<div className="grid gap-1">
+								<Image
+									alt="Bambi Thomson"
+									width={100}
+									height={100}
+									className="mx-auto aspect-[1/1] overflow-hidden rounded-full object-cover"
+									src="/bambi.jpeg?height=100&width=100"
+								/>
+
+								<h3 className="text-lg font-bold text-center">Bambi Thomson</h3>
+								<p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+									Head of cuteness
+								</p>
+							</div>
 						</div>
 					</div>
 				</section>
 
 				<section className="w-full py-12 md:py-24 lg:py-32" id="contact">
 					<div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
-						<h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight text-violet-500">
+					<div className="space-y-2">
+						<div className="inline-block rounded-lg bg-yellow-200 text-yellow-900 font-bold px-3 py-1 text-sm mb-4">
+							Lets Talk
+						</div>
+						<h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-violet-500">
 							Get in touch
 						</h2>
+						</div>
 						<p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed xl:text-xl/relaxed dark:text-gray-400">
 							Ready to get started? Get in touch today and let's create
 							something great together.
@@ -167,6 +200,7 @@ export default function IndexPage() {
 									className="max-w-lg flex-1"
 									placeholder="Enter your email"
 									type="email"
+									required={true}
 								/>
 								<Submit />
 							</form>

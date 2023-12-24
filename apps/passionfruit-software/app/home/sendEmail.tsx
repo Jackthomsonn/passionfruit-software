@@ -26,25 +26,26 @@ export async function sendEmail(formData: FormData) {
 		email: z.string().email(),
 	});
 
-	schema.parse({ email });
-
-	const transporter = createTransport({
-		service: "gmail",
-		host: "smtp.gmail.com",
-		port: 587,
-		secure: false,
-		auth: {
-			user: "hello@jackthomson.co.uk",
-			pass: process.env.EMAIL_PASS,
-		},
-	});
-
-	console.log(transporter);
-
-	await transporter.sendMail({
-		from: email,
-		to: "hello@jackthomson.co.uk",
-		subject: "PassionFruit Enquiry",
-		text: `Email: ${email} would like to get in touch regarding Passionfruit Software Services`,
-	});
+	try {
+		schema.parse({ email });
+		const transporter = createTransport({
+			service: "gmail",
+			host: "smtp.gmail.com",
+			port: 587,
+			secure: false,
+			auth: {
+				user: "hello@jackthomson.co.uk",
+				pass: process.env.EMAIL_PASS,
+			},
+		});
+	
+		await transporter.sendMail({
+			from: email,
+			to: "hello@jackthomson.co.uk",
+			subject: "PassionFruit Enquiry",
+			text: `Email: ${email} would like to get in touch regarding Passionfruit Software Services`,
+		});
+	} catch (e) {
+		return;
+	}
 }
