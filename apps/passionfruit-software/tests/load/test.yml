@@ -1,0 +1,16 @@
+config:
+  target: 'https://requital-v10.vercel.app'
+  phases:
+    - duration: 60  # Test duration in seconds
+      arrivalRate: 10  # Number of new virtual users per second
+
+scenarios:
+  - flow:
+      - post:
+          url: '/webhook/api'  # Replace with your endpoint
+          json:
+            item_id: 'pg0pamnRdjSMEBArLze9F0RENQDnOOCJaOJab'
+            webhook_code: 'SYNC_UPDATES_AVAILABLE'
+            initial_update_complete: true
+            historical_update_complete: true
+
