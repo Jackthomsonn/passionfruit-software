@@ -1,14 +1,26 @@
 "use server";
 
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+import { headers } from "next/headers";
 import { createTransport } from "nodemailer";
 import { z } from "zod";
-import { headers } from "next/headers";
 
 export async function sendEmail(formData: FormData) {
-	const email = formData.get("email") as string;
+	const ratelimit = new Ratelimit({
+		redis: Redis.fromEnv(),
+		limiter: Ratelimit.slidingWindow(1, "60 s"),
+		analytics: true,
+		prefix: "@upstash/ratelimit",
+	});
 
-	console.log(headers().get("x-forwarded-for"));
-	console.log(headers().get("x-real-ip"));
+	const identifier = headers().get("x-real-ip") as string;
+
+	const { success } = await ratelimit.limit(identifier);
+
+	if (!success) return;
+
+	const email = formData.get("email") as string;
 
 	const schema = z.object({
 		email: z.string().email(),
@@ -29,10 +41,10 @@ export async function sendEmail(formData: FormData) {
 
 	console.log(transporter);
 
-	// await transporter.sendMail({
-	// 	from: email,
-	// 	to: "hello@jackthomson.co.uk",
-	// 	subject: "PassionFruit Enquiry",
-	// 	text: `Email: ${email} would like to get in touch regarding Passionfruit Software Services`,
-	// });
+	await transporter.sendMail({
+		from: email,
+		to: "hello@jackthomson.co.uk",
+		subject: "PassionFruit Enquiry",
+		text: `Email: ${email} would like to get in touch regarding Passionfruit Software Services`,
+	});
 }
