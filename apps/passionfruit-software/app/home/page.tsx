@@ -2,13 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import { useFormStatus } from "react-dom";
-import { sendEmail } from "./sendEmail";
-import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { Label } from "@radix-ui/react-label";
-import { BedIcon, MonitorSmartphoneIcon, PackageCheckIcon, ShieldIcon, WebhookIcon } from "lucide-react";
+import { MonitorSmartphoneIcon, PackageCheckIcon, WebhookIcon } from "lucide-react";
+import Image from "next/image";
+import { useFormStatus } from "react-dom";
+import { toast } from "sonner";
+import { sendEmail } from "./sendEmail";
 
 const Submit = () => {
 	const status = useFormStatus();
@@ -29,7 +29,7 @@ const Submit = () => {
 
 	return (
 		<Button
-			className="inline-flex h-9 items-center justify-center rounded-md bg-violet-900 px-4 py-2 text-sm text-gray-50 shadow transition-colors hover:bg-violet-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-violet-50 dark:text-gray-900 dark:hover:bg-violet-50/90 dark:focus-visible:ring-gray-300 font-bold"
+			className="inline-flex h-9 items-center justify-center rounded-md bg-violet-900 px-4 py-2 text-sm text-gray-50 shadow transition-colors hover:bg-violet-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 font-bold"
 			type="submit"
 			disabled={status.pending}
 		>
@@ -67,7 +67,7 @@ export default function IndexPage() {
 								<h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-violet-500">
 									What We Offer
 								</h2>
-								<p className="max-w-[900px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 font-bold">
+								<p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
 									We provide a range of software development services to help
 									your business succeed.
 								</p>
@@ -76,7 +76,7 @@ export default function IndexPage() {
 						<div className="mx-auto grid gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-3 items-stretch">
 							<div className="grid gap-1 bg-blue-50 p-4 rounded-lg shadow-sm border-blue-100 border-2">
 								<h3 className="text-lg font-bold"><WebhookIcon />API Development</h3>
-								<p className="text-sm text-gray-500 dark:text-gray-400">
+								<p className="text-sm text-gray-500">
 									We specialize in creating robust and scalable APIs tailored to
 									your business needs. Our services include RESTful API design,
 									GraphQL API implementation, and secure integration with
@@ -88,7 +88,7 @@ export default function IndexPage() {
 								<h3 className="text-lg font-bold">
 									<PackageCheckIcon />Infrastructure Management
 								</h3>
-								<p className="text-sm text-gray-500 dark:text-gray-400">
+								<p className="text-sm text-gray-500">
 									Ensure the reliability and efficiency of your digital
 									infrastructure with our expert management services. We provide
 									cloud infrastructure setup, ongoing maintenance, performance
@@ -100,7 +100,7 @@ export default function IndexPage() {
 								<h3 className="text-lg font-bold">
 									<MonitorSmartphoneIcon />Frontend Development
 								</h3>
-								<p className="text-sm text-gray-500 dark:text-gray-400">
+								<p className="text-sm text-gray-500">
 									Crafting visually appealing and user-friendly interfaces for
 									web and mobile applications. Our expertise includes responsive
 									web design, mobile app development for iOS and Android, and
@@ -122,7 +122,7 @@ export default function IndexPage() {
 								<h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-violet-500">
 									Meet The PassionFruit Team
 								</h2>
-								<p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+								<p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
 									We are a small team of passionate software engineers who love
 									building great products. We believe in small iterative
 									releases and continuous improvement to get you ahead of the
@@ -141,7 +141,7 @@ export default function IndexPage() {
 								/>
 
 								<h3 className="text-lg font-bold text-center">Jack Thomson</h3>
-								<p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+								<p className="text-sm text-gray-500 text-center">
 									CEO & Lead Engineer
 								</p>
 							</div>
@@ -155,7 +155,7 @@ export default function IndexPage() {
 								/>
 
 								<h3 className="text-lg font-bold text-center">Katie Smaldon</h3>
-								<p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+								<p className="text-sm text-gray-500 text-center">
 									Head of accounts
 								</p>
 							</div>
@@ -169,7 +169,7 @@ export default function IndexPage() {
 								/>
 
 								<h3 className="text-lg font-bold text-center">Bambi Thomson</h3>
-								<p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+								<p className="text-sm text-gray-500 text-center">
 									Head of cuteness
 								</p>
 							</div>
@@ -187,12 +187,12 @@ export default function IndexPage() {
 							Get in touch
 						</h2>
 						</div>
-						<p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed xl:text-xl/relaxed dark:text-gray-400">
+						<p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed xl:text-xl/relaxed">
 							Ready to get started? Get in touch today and let's create
 							something great together.
 						</p>
 						<div className="mx-auto w-full max-w-sm space-y-2">
-							<form className="flex space-x-2" method="POST" action={sendEmail}>
+							<form className="flex space-x-2" method="POST" action={(formData: FormData) => sendEmail(formData)}>
 								<Label htmlFor="email" />
 								<Input
 									name="email"
@@ -204,7 +204,7 @@ export default function IndexPage() {
 								/>
 								<Submit />
 							</form>
-							<p className="text-xs text-gray-500 dark:text-gray-400">
+							<p className="text-xs text-gray-500">
 								We respect your privacy and never share your details.
 							</p>
 						</div>
@@ -215,7 +215,7 @@ export default function IndexPage() {
 			</main>
 
 			<footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-				<p className="text-xs text-gray-500 dark:text-gray-400">
+				<p className="text-xs text-gray-500">
 					© 2023 PassionFruit Software. All rights reserved.
 				</p>
 				<nav className="sm:ml-auto flex gap-4 sm:gap-6"></nav>
