@@ -179,13 +179,13 @@ export default function IndexPage() {
 
 				<section className="w-full py-12 md:py-24 lg:py-32" id="contact">
 					<div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
-					<div className="space-y-2">
-						<div className="inline-block rounded-lg bg-yellow-200 text-yellow-900 font-bold px-3 py-1 text-sm mb-4">
-							Lets Talk
-						</div>
-						<h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-violet-500">
-							Get in touch
-						</h2>
+						<div className="space-y-2">
+							<div className="inline-block rounded-lg bg-yellow-200 text-yellow-900 font-bold px-3 py-1 text-sm mb-4">
+								Lets Talk
+							</div>
+							<h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-violet-500">
+								Get in touch
+							</h2>
 						</div>
 						<p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed xl:text-xl/relaxed">
 							Ready to get started? Get in touch today and let's create
@@ -216,7 +216,7 @@ export default function IndexPage() {
 
 			<footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
 				<p className="text-xs text-gray-500">
-					© 2023 PassionFruit Software. All rights reserved.
+					© {new Date().getFullYear()} PassionFruit Software. All rights reserved.
 				</p>
 				<nav className="sm:ml-auto flex gap-4 sm:gap-6"></nav>
 			</footer>
