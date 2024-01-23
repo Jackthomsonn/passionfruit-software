@@ -6,7 +6,14 @@ import { Toaster } from "@/components/ui/sonner";
 import { Label } from "@radix-ui/react-label";
 import { MonitorSmartphoneIcon, PackageCheckIcon, WebhookIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useFormStatus } from "react-dom";
+import { TbBrandNextjs, TbLambda } from "react-icons/tb";
+import { FaCcStripe } from "react-icons/fa";
+import { SiApachekafka, SiGooglesheets, SiRedis, SiTailwindcss } from "react-icons/si";
+import { BiLogoPostgresql } from "react-icons/bi";
+import { IoLogoVercel } from "react-icons/io5";
+import { RiOpenaiFill } from "react-icons/ri";
 import { toast } from "sonner";
 import { sendEmail } from "./sendEmail";
 
@@ -75,8 +82,8 @@ export default function IndexPage() {
 						</div>
 						<div className="mx-auto grid gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-3 items-stretch">
 							<div className="grid gap-1 bg-blue-50 p-4 rounded-lg shadow-sm border-blue-100 border-2">
-								<h3 className="text-lg font-bold"><WebhookIcon />API Development</h3>
-								<p className="text-sm text-gray-500">
+								<h3 className="text-lg font-bold text-blue-800"><WebhookIcon />API Development</h3>
+								<p className="text-sm text-blue-800">
 									We specialize in creating robust and scalable APIs tailored to
 									your business needs. Our services include RESTful API design,
 									GraphQL API implementation, and secure integration with
@@ -85,10 +92,10 @@ export default function IndexPage() {
 								</p>
 							</div>
 							<div className="grid gap-1 bg-yellow-50 p-4 rounded-lg shadow-sm border-yellow-100 border-2">
-								<h3 className="text-lg font-bold">
+								<h3 className="text-lg font-bold text-yellow-800">
 									<PackageCheckIcon />Infrastructure Management
 								</h3>
-								<p className="text-sm text-gray-500">
+								<p className="text-sm text-yellow-800">
 									Ensure the reliability and efficiency of your digital
 									infrastructure with our expert management services. We provide
 									cloud infrastructure setup, ongoing maintenance, performance
@@ -97,16 +104,119 @@ export default function IndexPage() {
 								</p>
 							</div>
 							<div className="grid gap-1 bg-purple-50 p-4 rounded-lg shadow-sm border-purple-100 border-2">
-								<h3 className="text-lg font-bold">
+								<h3 className="text-lg font-bold text-purple-800">
 									<MonitorSmartphoneIcon />Frontend Development
 								</h3>
-								<p className="text-sm text-gray-500">
+								<p className="text-sm text-purple-800">
 									Crafting visually appealing and user-friendly interfaces for
 									web and mobile applications. Our expertise includes responsive
 									web design, mobile app development for iOS and Android, and
 									creating interactive user experiences with the latest frontend
 									technologies.
 								</p>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section className="bg-violet-500 w-full py-12 md:py-24 lg:py-32" id="work">
+					<div className="container grid items-center justify-center gap-4 px-4 md:px-6">
+						<div>
+							<div className="inline-block rounded-lg bg-yellow-200 text-yellow-900 font-bold px-3 py-1 text-sm mb-4">
+								Our work
+							</div>
+							<h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-white">
+								Some examples of our work
+							</h2>
+						</div>
+						<p className="text-white md:text-xl/relaxed xl:text-xl/relaxed">
+							We've worked with a range of clients to deliver custom software
+							solutions. Here are some examples of our work.
+						</p>
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+							<div className="space-y-4 bg-violet-600 p-4 rounded-lg">
+								<Image alt="" src={"/im1.png"} width={700} height={700} className="rounded-lg bg-white" />
+								<div className="space-y-4">
+									<p className="max-w-[600px] text-white md:text-sm/relaxed xl:text-md/relaxed font-bold">
+										GlyphGenie
+									</p>
+									<p className="max-w-[600px] text-white md:text-md/relaxed xl:text-md/relaxed">
+										We worked with GlyphGenie to build a web application that creates images using AI. They wanted something clean and simple that provided their users an easy way to create content that would apply for their brand.
+									</p>
+									<div className="flex gap-4 items-center">
+										<Link
+											className="inline-flex h-9 items-center justify-center rounded-md bg-violet-900 px-4 py-2 text-sm text-gray-50 shadow transition-colors hover:bg-violet-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 font-bold"
+											target="_blank"
+											href={"https://glyphgenie.app"}
+										>Visit site</Link>
+										<TbBrandNextjs size={24} color="white" />
+										<FaCcStripe size={24} color="white" />
+										<SiTailwindcss size={24} color="white" />
+										<BiLogoPostgresql size={24} color="white" />
+										<RiOpenaiFill size={24} color="white" />
+									</div>
+								</div>
+							</div>
+							<div className="space-y-4 bg-violet-600 p-4 rounded-lg">
+								<Image alt="" src={"/im2.png"} width={700} height={700} className="rounded-lg bg-white" />
+								<div className="space-y-4">
+									<p className="max-w-[600px] text-white md:text-sm/relaxed xl:text-md/relaxed font-bold">
+										FoodForEveryoneUk
+									</p>
+									<p className="max-w-[600px] text-white md:text-md/relaxed xl:text-md/relaxed">
+										FoodForEveryoneUk is a charity in the UK that helps feed the homeless. We built a website for them to help raise money, raise awareness of their cause and give them a way to tell their story.
+									</p>
+									<div className="flex gap-4 items-center">
+										<Link
+											className="inline-flex h-9 items-center justify-center rounded-md bg-violet-900 px-4 py-2 text-sm text-gray-50 shadow transition-colors hover:bg-violet-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 font-bold"
+											target="_blank"
+											href={"https://foodforeveryoneuk.org"}
+										>Visit site</Link>
+										<TbBrandNextjs size={24} color="white" />
+										<SiTailwindcss size={24} color="white" />
+										<SiGooglesheets size={24} color="white" />
+										<IoLogoVercel size={24} color="white" />
+									</div>
+								</div>
+							</div>
+							<div className="space-y-4 bg-violet-600 p-4 rounded-lg">
+								<Image alt="" src={"/requital.png"} width={700} height={700} className="rounded-lg bg-white" />
+								<div className="space-y-4">
+									<p className="max-w-[600px] text-white md:text-sm/relaxed xl:text-md/relaxed font-bold">
+										Requital
+									</p>
+									<p className="max-w-[600px] text-white md:text-md/relaxed xl:text-md/relaxed">
+										Requital rewards customers when shopping at their favourite stores. The service works off of open banking API's to allow customers to connect their bank accounts and match their transactions to rewards.
+									</p>
+									<div className="flex gap-4 items-center">
+										<Link
+											className="inline-flex h-9 items-center justify-center rounded-md bg-violet-900 px-4 py-2 text-sm text-gray-50 shadow transition-colors hover:bg-violet-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 font-bold"
+											target="_blank"
+											href={"https://requital-v10.vercel.app"}
+										>Visit site</Link>
+										<TbBrandNextjs size={24} color="white" />
+										<SiTailwindcss size={24} color="white" />
+										<SiApachekafka size={24} color="white" />
+										<TbLambda size={24} color="white" />
+										<SiRedis size={24} color="white" />
+									</div>
+								</div>
+							</div>
+							<div className="space-y-4 bg-violet-600 p-4 rounded-lg">
+								<div className="space-y-4 flex flex-col justify-center items-center h-full text-center">
+									<p className="max-w-[600px] text-white md:text-lg/relaxed xl:text-xl/relaxed font-bold">
+										Your project here?
+									</p>
+									<p className="max-w-[600px] text-white md:text-lg/relaxed xl:text-xl/relaxed">
+										If you are interested in working with PassionFruit Software to bring your idea to life, get in touch today.
+									</p>
+									<div className="flex gap-4 items-center">
+										<Link
+											className="inline-flex h-9 items-center justify-center rounded-md bg-violet-900 px-4 py-2 text-sm text-gray-50 shadow transition-colors hover:bg-violet-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 font-bold"
+											href={"#contact"}
+										>Get in touch</Link>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
