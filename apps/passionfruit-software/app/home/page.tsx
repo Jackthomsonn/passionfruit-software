@@ -210,12 +210,6 @@ export default function IndexPage() {
 									<p className="max-w-[600px] text-white md:text-lg/relaxed xl:text-xl/relaxed">
 										If you are interested in working with PassionFruit Software to bring your idea to life, get in touch today.
 									</p>
-									<div className="flex gap-4 items-center">
-										<Link
-											className="inline-flex h-9 items-center justify-center rounded-md bg-violet-900 px-4 py-2 text-sm text-gray-50 shadow transition-colors hover:bg-violet-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 font-bold"
-											href={"#contact"}
-										>Get in touch</Link>
-									</div>
 								</div>
 							</div>
 						</div>
