@@ -246,7 +246,7 @@ export default function IndexPage() {
 
 								<h3 className="text-lg font-bold text-center">Jack Thomson</h3>
 								<p className="text-sm text-gray-500 text-center">
-									CEO & Lead Engineer
+									Software Engineer
 								</p>
 							</div>
 							<div className="grid gap-1">
