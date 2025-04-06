@@ -1,7 +1,7 @@
 {
   "name": "passionfruit-software",
   "devDependencies": {
-    "tsconfig": "*",
+    "tsconfig": "^7.0.0",
     "turbo": "latest"
   },
   "packageManager": "bun@1.0.0",
@@ -17,6 +17,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "react-icons": "^5.0.1"
+    "caniuse-lite": "^1.0.30001712",
+    "react-icons": "^5.5.0"
   }
 }
