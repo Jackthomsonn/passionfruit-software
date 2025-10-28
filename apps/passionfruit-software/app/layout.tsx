@@ -6,6 +6,7 @@ import { siteConfig } from "@/config/site";
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/components/site-header";
+import Script from "next/script";
 
 export const metadata: Metadata = {
 	title: {
@@ -51,6 +52,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
 						<div className="flex-1">{children}</div>
 						<Analytics />
 					</div>
+
+					<Script
+						src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+						async
+						defer
+					/>
 				</body>
 			</html>
 		</>

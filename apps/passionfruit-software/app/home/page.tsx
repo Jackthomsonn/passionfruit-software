@@ -297,6 +297,13 @@ export default function IndexPage() {
 						</p>
 						<div className="mx-auto w-full max-w-sm space-y-2">
 							<form className="flex space-x-2" method="POST" action={(formData: FormData) => sendEmail(formData)}>
+								<input
+									type="text"
+									name="website"
+									className="hidden"
+									tabIndex={-1}
+									autoComplete="off"
+								/>
 								<Label htmlFor="email" />
 								<Input
 									name="email"
@@ -305,6 +312,10 @@ export default function IndexPage() {
 									placeholder="Enter your email"
 									type="email"
 									required={true}
+								/>
+								<div
+									className="cf-turnstile"
+									data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_KEY!}
 								/>
 								<Submit />
 							</form>
