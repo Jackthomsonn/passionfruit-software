@@ -20,7 +20,14 @@ import { sendEmail } from "./sendEmail";
 declare global {
 	interface Window {
 		turnstile?: {
-			render: (element: HTMLElement | string, options: { sitekey: string; callback?: (token: string) => void }) => string;
+			render: (
+				element: HTMLElement | string,
+				options: {
+					sitekey: string;
+					callback?: (token: string) => void;
+					'error-callback'?: (error: any) => void;
+				}
+			) => string;
 			reset: (widgetId: string) => void;
 		};
 	}
@@ -45,18 +52,43 @@ export default function IndexPage() {
 	const [isPending, setIsPending] = useState(false);
 
 	useEffect(() => {
-		if (!turnstileRef.current || !process.env.NEXT_PUBLIC_TURNSTILE_KEY) return;
+		console.log('Turnstile key exists:', !!process.env.NEXT_PUBLIC_TURNSTILE_KEY);
+		console.log('Turnstile key value:', process.env.NEXT_PUBLIC_TURNSTILE_KEY);
+		
+		if (!turnstileRef.current || !process.env.NEXT_PUBLIC_TURNSTILE_KEY) {
+			console.log('Cannot initialize Turnstile - missing ref or key');
+			return;
+		}
 
-		const timer = setTimeout(() => {
-			if (window.turnstile) {
-				widgetIdRef.current = window.turnstile.render(turnstileRef.current!, {
-					sitekey: process.env.NEXT_PUBLIC_TURNSTILE_KEY!,
-					callback: (token) => {
-						tokenRef.current = token;
-					}
-				});
+		let retries = 0;
+		const maxRetries = 50;
+		
+		const checkTurnstile = () => {
+			retries++;
+			if (window.turnstile && turnstileRef.current && !widgetIdRef.current) {
+				console.log('Rendering Turnstile with sitekey:', process.env.NEXT_PUBLIC_TURNSTILE_KEY);
+				try {
+					widgetIdRef.current = window.turnstile.render(turnstileRef.current, {
+						sitekey: process.env.NEXT_PUBLIC_TURNSTILE_KEY!,
+						callback: (token) => {
+							console.log('Turnstile token received');
+							tokenRef.current = token;
+						},
+						'error-callback': (error) => {
+							console.error('Turnstile error:', error);
+						}
+					});
+				} catch (error) {
+					console.error('Error rendering Turnstile:', error);
+				}
+			} else if (!window.turnstile && retries < maxRetries) {
+				setTimeout(checkTurnstile, 100);
+			} else if (retries >= maxRetries) {
+				console.error('Turnstile script failed to load');
 			}
-		}, 100);
+		};
+
+		const timer = setTimeout(checkTurnstile, 100);
 
 		return () => {
 			clearTimeout(timer);
