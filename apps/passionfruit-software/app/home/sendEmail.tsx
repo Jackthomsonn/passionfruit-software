@@ -9,7 +9,7 @@ import { z } from "zod";
 export async function sendEmail(formData: FormData) {
 	const website = formData.get("website");
 	console.log({ website });
-	if (website) return;
+	if (website !== '') return;
 
 	const ratelimit = new Ratelimit({
 		redis: Redis.fromEnv(),

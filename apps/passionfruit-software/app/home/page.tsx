@@ -7,7 +7,7 @@ import { Label } from "@radix-ui/react-label";
 import { MonitorSmartphoneIcon, PackageCheckIcon, WebhookIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useFormStatus } from "react-dom";
+import { useState, useRef, useEffect } from "react";
 import { TbBrandNextjs, TbLambda } from "react-icons/tb";
 import { FaCcStripe } from "react-icons/fa";
 import { SiApachekafka, SiGooglesheets, SiRedis, SiTailwindcss } from "react-icons/si";
@@ -17,35 +17,88 @@ import { RiOpenaiFill } from "react-icons/ri";
 import { toast } from "sonner";
 import { sendEmail } from "./sendEmail";
 
-const Submit = () => {
-	const status = useFormStatus();
-
-	if (!status.pending) {
-		toast("Your email has been recieved", {
-			description: "We'll be in touch within the next 24 hours",
-			position: "bottom-center",
-			action: {
-				label: "Close",
-				onClick: () => toast.dismiss(),
-			},
-			actionButtonStyle: {
-				background: "#4C1D95",
-			},
-		});
+declare global {
+	interface Window {
+		turnstile?: {
+			render: (element: HTMLElement | string, options: { sitekey: string; callback?: (token: string) => void }) => string;
+			reset: (widgetId: string) => void;
+		};
 	}
+}
 
+const Submit = ({ isPending }: { isPending: boolean }) => {
 	return (
 		<Button
 			className="inline-flex h-9 items-center justify-center rounded-md bg-violet-900 px-4 py-2 text-sm text-gray-50 shadow transition-colors hover:bg-violet-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 font-bold"
 			type="submit"
-			disabled={status.pending}
+			disabled={isPending}
 		>
-			{status.pending ? "Sending" : "Send"}
+			{isPending ? "Sending" : "Send"}
 		</Button>
 	);
 };
 
 export default function IndexPage() {
+	const turnstileRef = useRef<HTMLDivElement>(null);
+	const widgetIdRef = useRef<string | null>(null);
+	const tokenRef = useRef<string | null>(null);
+	const [isPending, setIsPending] = useState(false);
+
+	useEffect(() => {
+		if (!turnstileRef.current || !process.env.NEXT_PUBLIC_TURNSTILE_KEY) return;
+
+		const timer = setTimeout(() => {
+			if (window.turnstile) {
+				widgetIdRef.current = window.turnstile.render(turnstileRef.current!, {
+					sitekey: process.env.NEXT_PUBLIC_TURNSTILE_KEY!,
+					callback: (token) => {
+						tokenRef.current = token;
+					}
+				});
+			}
+		}, 100);
+
+		return () => {
+			clearTimeout(timer);
+			if (widgetIdRef.current && window.turnstile) {
+				window.turnstile.reset(widgetIdRef.current);
+			}
+		};
+	}, []);
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		
+		if (!tokenRef.current) {
+			toast.error("Please complete the verification");
+			return;
+		}
+
+		setIsPending(true);
+		
+		const formData = new FormData(e.currentTarget);
+		formData.append('cf-turnstile-response', tokenRef.current);
+		
+		await sendEmail(formData);
+		
+		// Show success toast
+		toast.success("Your email has been received", {
+			description: "We'll be in touch within the next 24 hours",
+			position: "bottom-center",
+			actionButtonStyle: {
+				background: "#4C1D95",
+			},
+		});
+		
+		// Reset form and widget
+		(e.target as HTMLFormElement).reset();
+		if (widgetIdRef.current && window.turnstile) {
+			window.turnstile.reset(widgetIdRef.current);
+		}
+		tokenRef.current = null;
+		setIsPending(false);
+	};
+
 	return (
 		<div className="flex flex-col min-h-screen">
 			<main className="flex-1">
@@ -296,7 +349,7 @@ export default function IndexPage() {
 							something great together.
 						</p>
 						<div className="mx-auto w-full max-w-sm space-y-2">
-							<form className="flex space-x-2" method="POST" action={(formData: FormData) => sendEmail(formData)}>
+							<form className="flex flex-col space-y-2" onSubmit={handleSubmit}>
 								<input
 									type="text"
 									name="website"
@@ -313,11 +366,8 @@ export default function IndexPage() {
 									type="email"
 									required={true}
 								/>
-								<div
-									className="cf-turnstile"
-									data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_KEY!}
-								/>
-								<Submit />
+								<div ref={turnstileRef} />
+								<Submit isPending={isPending} />
 							</form>
 							<p className="text-xs text-gray-500">
 								We respect your privacy and never share your details.
