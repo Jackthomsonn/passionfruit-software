@@ -8,7 +8,6 @@ import { z } from "zod";
 
 export async function sendEmail(formData: FormData) {
 	const website = formData.get("website");
-	console.log({ website });
 	if (website !== '') return;
 
 	const ratelimit = new Ratelimit({
@@ -22,7 +21,6 @@ export async function sendEmail(formData: FormData) {
 
 	const token = formData.get("cf-turnstile-response");
 
-	console.log({ token })
 	if (!token) return;
 
 	const verify = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
@@ -35,7 +33,6 @@ export async function sendEmail(formData: FormData) {
 	});
 	const turnstile = await verify.json();
 
-	console.log({ turnstile: JSON.stringify(turnstile) })
 	if (!turnstile.success) return;
 
 	const email = formData.get("email") as string;

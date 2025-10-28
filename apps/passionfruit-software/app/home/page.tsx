@@ -52,11 +52,7 @@ export default function IndexPage() {
 	const [isPending, setIsPending] = useState(false);
 
 	useEffect(() => {
-		console.log('Turnstile key exists:', !!process.env.NEXT_PUBLIC_TURNSTILE_KEY);
-		console.log('Turnstile key value:', process.env.NEXT_PUBLIC_TURNSTILE_KEY);
-		
 		if (!turnstileRef.current || !process.env.NEXT_PUBLIC_TURNSTILE_KEY) {
-			console.log('Cannot initialize Turnstile - missing ref or key');
 			return;
 		}
 
@@ -66,12 +62,10 @@ export default function IndexPage() {
 		const checkTurnstile = () => {
 			retries++;
 			if (window.turnstile && turnstileRef.current && !widgetIdRef.current) {
-				console.log('Rendering Turnstile with sitekey:', process.env.NEXT_PUBLIC_TURNSTILE_KEY);
 				try {
 					widgetIdRef.current = window.turnstile.render(turnstileRef.current, {
 						sitekey: process.env.NEXT_PUBLIC_TURNSTILE_KEY!,
 						callback: (token) => {
-							console.log('Turnstile token received');
 							tokenRef.current = token;
 						},
 						'error-callback': (error) => {
